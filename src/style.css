@@ -1,0 +1,464 @@
+@import "tailwindcss";
+
+/* Dark mode follows the .dark class on <html>, set before paint in index.html. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f5f7fc;
+  --surface: #ffffff;
+  --surface-2: #eef2fa;
+  --fg: #0b1324;
+  --muted: #475569;
+  --line: #dfe5ef;
+  --accent: #1d4ed8;
+  --accent-2: #0e7490;
+  --accent-soft: #e8efff;
+  --accent-fg: #ffffff;
+  --packet: #0891b2;
+  --grid: rgba(15, 23, 42, 0.06);
+  --glow-1: rgba(37, 99, 235, 0.16);
+  --glow-2: rgba(6, 182, 212, 0.14);
+  --spot: rgba(37, 99, 235, 0.08);
+
+  /* Diagram tokens */
+  --d-node: #ffffff;
+  --d-stroke: #cbd5e1;
+  --d-text: #1e293b;
+  --d-text-strong: #0f172a;
+  --d-edge: #94a3b8;
+  --d-accent: #2563eb;
+  --d-accent-fill: #eff6ff;
+  --d-error: #dc2626;
+  --d-error-fill: #fef2f2;
+  --d-warn: #b45309;
+  --d-warn-fill: #fffbeb;
+  --d-bronze: #a0522d;
+  --d-bronze-fill: #fbf1ea;
+  --d-silver: #64748b;
+  --d-silver-fill: #f1f5f9;
+  --d-gold: #a16207;
+  --d-gold-fill: #fefce8;
+  --d-group: #93c5fd;
+  --d-grid: #e2e8f0;
+}
+
+.dark {
+  --bg: #060b17;
+  --surface: #0c1426;
+  --surface-2: #101b32;
+  --fg: #e6edf7;
+  --muted: #94a3b8;
+  --line: #1a2640;
+  --accent: #6aa5ff;
+  --accent-2: #22d3ee;
+  --accent-soft: rgba(106, 165, 255, 0.12);
+  --accent-fg: #060b17;
+  --packet: #22d3ee;
+  --grid: rgba(148, 163, 184, 0.07);
+  --glow-1: rgba(59, 130, 246, 0.28);
+  --glow-2: rgba(34, 211, 238, 0.16);
+  --spot: rgba(106, 165, 255, 0.1);
+
+  --d-node: #0c1426;
+  --d-stroke: #2b3a55;
+  --d-text: #cbd5e1;
+  --d-text-strong: #f1f5f9;
+  --d-edge: #5b6b85;
+  --d-accent: #6aa5ff;
+  --d-accent-fill: rgba(106, 165, 255, 0.12);
+  --d-error: #f87171;
+  --d-error-fill: rgba(248, 113, 113, 0.12);
+  --d-warn: #fbbf24;
+  --d-warn-fill: rgba(251, 191, 36, 0.1);
+  --d-bronze: #e0915c;
+  --d-bronze-fill: rgba(224, 145, 92, 0.12);
+  --d-silver: #cbd5e1;
+  --d-silver-fill: rgba(203, 213, 225, 0.1);
+  --d-gold: #facc15;
+  --d-gold-fill: rgba(250, 204, 21, 0.1);
+  --d-group: #1e40af;
+  --d-grid: #18233a;
+}
+
+@theme inline {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+body {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+}
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* ---------- Scroll reveal (src/reveal.js) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s ease var(--reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Hero backdrop ---------- */
+.hero-dots {
+  background-image: radial-gradient(var(--d-grid) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 80% at 75% 40%, #000 30%, transparent 75%);
+}
+.hero-beam {
+  background: linear-gradient(115deg, transparent 20%, var(--glow-1) 50%, var(--glow-2) 62%, transparent 80%);
+  filter: blur(40px);
+  transform: rotate(-8deg);
+  animation: beam 14s ease-in-out infinite alternate;
+}
+@keyframes beam {
+  to { transform: rotate(-3deg) translateX(-4%); opacity: 0.75; }
+}
+.hero-gradient-text {
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.06em;
+}
+
+/* Soft glows (contact card) */
+.glow {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.glow-1 {
+  background: radial-gradient(circle, var(--glow-1), transparent 65%);
+}
+.glow-2 {
+  background: radial-gradient(circle, var(--glow-2), transparent 65%);
+}
+
+/* ---------- Section heading rule ---------- */
+.rule-draw {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+}
+.is-visible .rule-draw {
+  transform: scaleX(1);
+}
+
+/* ---------- Spotlight cards (src/components/SpotlightCard.vue) ---------- */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), var(--spot), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Marquee ---------- */
+.marquee-track {
+  animation: marquee 45s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Experience timeline fill (scroll-driven where supported) ---------- */
+.timeline-fill {
+  transform-origin: top;
+}
+@supports (animation-timeline: view()) {
+  .timeline-fill {
+    animation: timeline-grow linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 65%;
+  }
+}
+@keyframes timeline-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* ---------- Hero pipeline (src/components/HeroPipeline.vue) ---------- */
+.pipe-node {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1.25;
+}
+.pipe-node.is-accent {
+  stroke: var(--accent);
+  fill: var(--accent-soft);
+}
+.pipe-node.is-error {
+  stroke: var(--d-error);
+  fill: var(--d-error-fill);
+  stroke-dasharray: 4 3;
+}
+.pipe-title {
+  fill: var(--fg);
+  font-size: 15px;
+  font-weight: 700;
+}
+.pipe-sub {
+  fill: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+.pipe-edge {
+  fill: none;
+  stroke: var(--d-edge);
+  stroke-width: 1.5;
+  opacity: 0.7;
+}
+.pipe-edge.is-error {
+  stroke: var(--d-error);
+  stroke-dasharray: 4 4;
+}
+.pipe-packet {
+  fill: var(--packet);
+  filter: drop-shadow(0 0 4px var(--packet));
+}
+.pipe-packet.is-error {
+  fill: var(--d-error);
+  filter: drop-shadow(0 0 4px var(--d-error));
+}
+
+/* ---------- Flow diagrams (src/components/FlowDiagram.vue) ---------- */
+.diagram-canvas {
+  background-image: radial-gradient(var(--d-grid) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.flow-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+  font-family: var(--font-sans);
+}
+.flow-diagram .shape {
+  fill: var(--d-node);
+  stroke: var(--d-stroke);
+  stroke-width: 1.25;
+}
+.flow-diagram .lid {
+  fill: none;
+  stroke: var(--d-stroke);
+  stroke-width: 1.25;
+}
+.flow-diagram .label {
+  fill: var(--d-text);
+  font-size: 12.5px;
+}
+.flow-diagram .label-strong {
+  fill: var(--d-text-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+.flow-diagram .kind-decision .shape,
+.flow-diagram .kind-accent .shape {
+  stroke: var(--d-accent);
+  fill: var(--d-accent-fill);
+}
+.flow-diagram .kind-source .shape,
+.flow-diagram .kind-sink .shape {
+  stroke: var(--d-accent);
+  stroke-width: 1.5;
+}
+.flow-diagram .kind-store .shape,
+.flow-diagram .kind-store .lid {
+  stroke: var(--d-accent);
+}
+.flow-diagram .kind-store .shape {
+  fill: var(--d-accent-fill);
+}
+.flow-diagram .kind-error .shape,
+.flow-diagram .kind-error-store .shape {
+  stroke: var(--d-error);
+  fill: var(--d-error-fill);
+}
+.flow-diagram .kind-error-store .lid {
+  stroke: var(--d-error);
+}
+.flow-diagram .kind-warn .shape {
+  stroke: var(--d-warn);
+  fill: var(--d-warn-fill);
+}
+.flow-diagram .kind-muted .shape {
+  stroke-dasharray: 4 3;
+}
+.flow-diagram .kind-muted .label {
+  fill: var(--muted);
+}
+.flow-diagram .kind-bronze .shape {
+  stroke: var(--d-bronze);
+  fill: var(--d-bronze-fill);
+  stroke-width: 1.5;
+}
+.flow-diagram .kind-silver .shape {
+  stroke: var(--d-silver);
+  fill: var(--d-silver-fill);
+  stroke-width: 1.5;
+}
+.flow-diagram .kind-gold .shape {
+  stroke: var(--d-gold);
+  fill: var(--d-gold-fill);
+  stroke-width: 1.5;
+}
+.flow-diagram .kind-bronze .label-strong { fill: var(--d-bronze); }
+.flow-diagram .kind-silver .label-strong { fill: var(--d-text-strong); }
+.flow-diagram .kind-gold .label-strong { fill: var(--d-gold); }
+
+.flow-diagram .edge {
+  fill: none;
+  stroke: var(--d-edge);
+  stroke-width: 1.5;
+}
+.flow-diagram .edge.dashed {
+  stroke-dasharray: 5 4;
+}
+.flow-diagram .edge-head { fill: var(--d-edge); }
+.flow-diagram .edge.tone-error { stroke: var(--d-error); }
+.flow-diagram .edge-head.tone-error { fill: var(--d-error); }
+.flow-diagram .edge.tone-warn { stroke: var(--d-warn); }
+.flow-diagram .edge-head.tone-warn { fill: var(--d-warn); }
+.flow-diagram .edge.tone-muted { stroke-dasharray: 4 3; }
+
+.flow-diagram .edge-label-bg {
+  fill: var(--surface);
+  stroke: var(--d-stroke);
+}
+.flow-diagram .edge-label-bg.tone-error { stroke: var(--d-error); }
+.flow-diagram .edge-label-bg.tone-warn { stroke: var(--d-warn); }
+.flow-diagram .edge-label {
+  fill: var(--d-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+.flow-diagram .edge-label.tone-error { fill: var(--d-error); }
+.flow-diagram .edge-label.tone-warn { fill: var(--d-warn); }
+
+.flow-diagram .group-box {
+  fill: none;
+  stroke: var(--d-group);
+  stroke-width: 1.25;
+  stroke-dasharray: 6 4;
+}
+.flow-diagram .group-tab {
+  fill: var(--surface);
+  stroke: var(--d-group);
+}
+.flow-diagram .group-label {
+  fill: var(--d-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.flow-diagram .packet { fill: var(--packet); filter: drop-shadow(0 0 3px var(--packet)); }
+.flow-diagram .packet.tone-error { fill: var(--d-error); filter: drop-shadow(0 0 3px var(--d-error)); }
+.flow-diagram .packet.tone-warn { fill: var(--d-warn); filter: drop-shadow(0 0 3px var(--d-warn)); }
+
+/* Draw-in: solid edges use pathLength="1" so the dash trick works for any length. */
+.flow-diagram .node,
+.flow-diagram .edge-g,
+.flow-diagram .label-g,
+.flow-diagram .group-g {
+  transition:
+    opacity 0.5s ease var(--d, 0ms),
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms);
+}
+.flow-diagram .edge.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.6s ease var(--d, 0ms);
+}
+.flow-diagram.is-pending .node {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.flow-diagram.is-pending .edge-g,
+.flow-diagram.is-pending .label-g,
+.flow-diagram.is-pending .group-g {
+  opacity: 0;
+}
+.flow-diagram.is-pending .edge.draw {
+  stroke-dashoffset: 1;
+}
+.flow-diagram.no-transition * {
+  transition: none !important;
+}
+
+/* Hover a node: highlight its connections, dim the rest */
+.flow-diagram.is-focus .node,
+.flow-diagram.is-focus .edge-g,
+.flow-diagram.is-focus .label-g {
+  transition-delay: 0ms;
+}
+.flow-diagram.is-focus .node:not(.hl),
+.flow-diagram.is-focus .edge-g:not(.hl),
+.flow-diagram.is-focus .label-g:not(.hl) {
+  opacity: 0.28;
+}
+.flow-diagram .edge-g.hl .edge { stroke-width: 2.25; }
+.flow-diagram .edge-g.hl .edge:not(.tone-error):not(.tone-warn) { stroke: var(--d-accent); }
+.flow-diagram .node { cursor: default; }
+
+/* ---------- Reduced motion: everything static ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-beam, .marquee-track, .timeline-fill {
+    animation: none !important;
+  }
+  .rule-draw { transform: none; transition: none; }
+  .spotlight::before { display: none; }
+  .flow-diagram * { transition: none !important; }
+}
