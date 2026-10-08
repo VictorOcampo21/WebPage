@@ -54,20 +54,7 @@ const badge = computed(() => {
           {{ badge }}
         </span>
       </div>
-      <h3 class="mt-2 text-xl font-bold tracking-tight text-fg sm:text-2xl">
-        <a
-          v-if="project.repo"
-          :href="project.repo"
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center gap-2 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
-        >
-          {{ project.title }}
-          <Icon name="external" :size="14" />
-          <span class="sr-only">(opens repository in a new tab)</span>
-        </a>
-        <template v-else>{{ project.title }}</template>
-      </h3>
+      <h3 class="mt-2 text-xl font-bold tracking-tight text-fg sm:text-2xl">{{ project.title }}</h3>
       <p class="mt-3 leading-relaxed text-muted">{{ project.summary }}</p>
       <ul class="mt-4 flex flex-wrap gap-2" aria-label="Technologies">
         <li
@@ -78,6 +65,18 @@ const badge = computed(() => {
           {{ tech }}
         </li>
       </ul>
+      <a
+        v-if="project.repo"
+        :href="project.repo"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <Icon name="github" :size="15" />
+        View repository
+        <Icon name="external" :size="12" />
+        <span class="sr-only">(opens in a new tab)</span>
+      </a>
     </div>
 
     <div class="border-t border-line">

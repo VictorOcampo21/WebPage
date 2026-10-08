@@ -10,8 +10,8 @@ export const profile = {
   firstName: 'Victor',
   lastName: 'Ocampo Marin',
   eyebrow: 'Data Engineer based in Costa Rica',
-  // Shown under the name. Degree: Bachelor's in Information Systems Engineering.
-  title: 'Information Systems Engineer / Data Engineering & ETL',
+  // Shown under the name. Must match the CV and LinkedIn headline.
+  title: 'Data Engineer · SQL Server, ETL & Apache NiFi',
   heroStack: ['SQL Server', 'SSIS', 'Apache NiFi', 'Python', 'Azure'],
   tagline:
     'I build data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.',
@@ -190,7 +190,7 @@ export const profile = {
       id: 'lakehouse',
       title: 'CR e-invoice Lakehouse',
       kind: 'Personal project',
-      // Change to 'in-progress' and set `repo` once the repository has its first phase published.
+      // Change to 'in-progress' and list finished phases once they are published in the repo.
       status: 'coming-soon',
       stack: ['Databricks', 'PySpark', 'Delta Lake', 'Unity Catalog'],
       summary:
@@ -199,7 +199,7 @@ export const profile = {
       // Phases already finished in the repo, e.g. ['Phase 0: design and repository'].
       phasesDone: [],
       diagram: 'lakehouse',
-      repo: null,
+      repo: 'https://github.com/VictorOcampo21/datalakehouse-practice',
     },
   ],
 
@@ -207,7 +207,7 @@ export const profile = {
     title: 'Other client data projects',
     items: [
       'Log ingestion flow (in progress) for a government judicial entity: Apache NiFi collects application logs from multiple virtual machines, extracts the key fields and loads them into a database that the analytics team uses to feed KPIs to an AI support agent.',
-      'Development, maintenance and migration of SSIS ETL processes for a regional financial institution, within a five-person data team.',
+      'Modernization of legacy SSIS ETL and SQL processes for a regional financial institution, within a five-person data team: adapting existing packages to new tables and servers, troubleshooting incremental loads and resolving data tickets.',
     ],
   },
 
