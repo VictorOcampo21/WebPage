@@ -1,5 +1,5 @@
 // All website content lives here. Edit this file when the CV changes.
-// Source of truth: cv/Victor_Ocampo_Marin_Data_Engineer_v4.tex and docs/master-resume.md.
+// Source of truth: cv/Victor_Ocampo_Marin_Data_Engineer_v6.tex and docs/master-resume.md.
 // Flow diagrams live in src/diagrams/ (one file per project).
 
 export const profile = {
@@ -26,16 +26,16 @@ export const profile = {
 
   // "Now" card in About (from the GitHub profile README).
   now: [
-    'Data development across three concurrent client projects: data ingestion, file migration and SSIS migration.',
+    'Data development across three concurrent client projects: data ingestion, file migration and SSIS modernization.',
     'Designing and building the Apache NiFi flows for two of them.',
-    'Training in Databricks, Apache Spark and Microsoft Fabric; starting a personal Databricks lakehouse project.',
+    'Training in Databricks, PySpark and Microsoft Fabric; starting a personal Databricks lakehouse project.',
   ],
 
   // Scrolling band between sections.
-  marquee: ['SQL Server', 'T-SQL', 'SSIS', 'Apache NiFi', 'Python', 'PostgreSQL', 'Azure', 'Docker', 'Linux', 'Git'],
+  marquee: ['SQL Server', 'T-SQL', 'SSIS', 'Apache NiFi', 'Python', 'PostgreSQL', 'Azure', 'Linux', 'Git'],
 
   // Served from public/. Replace the file there and update the name here when the CV changes.
-  cvFile: 'Victor_Ocampo_Marin_Data_Engineer_v4.pdf',
+  cvFile: 'Victor_Ocampo_Marin_Data_Engineer_v6.pdf',
 
   links: {
     email: 'victorocampomarin21@gmail.com',
@@ -44,10 +44,10 @@ export const profile = {
   },
 
   about: [
-    "I'm a Data Engineer with 5 years of experience building data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.",
-    "Today I'm responsible for data development across three concurrent client projects at a data outsourcing firm: data ingestion, file migration and SSIS migration. I design and build the Apache NiFi flows for two of them.",
+    "I'm a Data Engineer with a 5-year background in software and data engineering, building data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.",
+    "Today I'm responsible for data development across three concurrent client projects at a data outsourcing firm: data ingestion, file migration and SSIS modernization. I design and build the Apache NiFi flows for two of them.",
     'Before data engineering I was a full stack engineer (C#/.NET, Go, Vue.js, Django), so I care about the whole path: from the source system to the person reading the dashboard. I am used to explaining technical work to non-technical users.',
-    "I'm currently training in Databricks, Apache Spark and Microsoft Fabric, and starting a personal Databricks lakehouse project.",
+    "I'm currently training in Databricks, PySpark and Microsoft Fabric, and starting a personal Databricks lakehouse project.",
   ],
 
   experience: [
@@ -58,7 +58,8 @@ export const profile = {
       location: 'Costa Rica',
       bullets: [
         'Principal data developer for two government judicial entities; sole builder of all their Apache NiFi flows.',
-        'Built a metadata-driven file migration pipeline to Isilon (NiFi, Python, SQL Server) that rejects corrupted or encrypted files, verifies SHA-256 hashes, retries failures up to a limit, and audits every result.',
+        'Built a metadata-driven file migration pipeline to Isilon storage with NiFi, Python, and SQL Server: a metadata table drives each transfer, and files are renamed by file ID and verified by Python scripts.',
+        'Ensured end-to-end integrity: rejects corrupted or encrypted files, verifies SHA-256 hashes at the destination, retries failed transfers up to a limit, and logs every result and error to SQL Server audit tables.',
         'Build a NiFi log ingestion flow that loads application logs from multiple virtual machines into a database the analytics team uses to feed an AI support agent.',
         'Modernize legacy SSIS ETL and SQL processes for a regional financial institution in a 5-person team: adapt existing packages to new tables and servers, troubleshoot incremental loads, and resolve data tickets.',
       ],
@@ -71,9 +72,9 @@ export const profile = {
       location: 'Costa Rica',
       bullets: [
         'FactuBot: built a Python (Django) ETL bot for multiple accountants that pulls XML invoices from Gmail on a schedule, deduplicates and validates them against Costa Rica tax authority (Hacienda) rules, routes failures to an error queue, and loads Azure Database for PostgreSQL for VAT and P&L KPIs.',
-        'OftaData: gathered requirements with the doctor and trained staff; designed the PostgreSQL database, Go backend, Vue.js frontend, and Docker-based Azure deployment of a system centralizing 1,000+ patient forms with images across 5 clinics, with daily backups (7-day retention) used in real restores.',
+        'OftaData: gathered requirements with the doctor and trained staff; designed the PostgreSQL database, Go backend, Vue.js frontend, and Azure deployment (VM, networking, firewall, SSL) of a system centralizing 1,000+ patient forms with medical images across 5 clinics; daily database and image backups (7-day retention) restored data after real incidents.',
       ],
-      tags: ['Python', 'Django', 'PostgreSQL', 'Go', 'Vue.js', 'Docker', 'Azure'],
+      tags: ['Python', 'Django', 'PostgreSQL', 'Go', 'Vue.js', 'Azure'],
     },
     {
       title: 'RPA Developer II',
@@ -172,7 +173,7 @@ export const profile = {
       title: 'OftaData',
       kind: 'Multi-clinic patient records system',
       status: 'done',
-      stack: ['Go', 'Vue.js', 'PostgreSQL', 'Docker', 'Azure', 'Nginx'],
+      stack: ['Go', 'Vue.js', 'PostgreSQL', 'Azure', 'Nginx'],
       summary:
         'Built end to end for an ophthalmologist who works across five clinics in Costa Rica: database, backend, frontend and deployment. It centralizes every patient from every clinic in one system (1,000+ patient forms with medical images), used daily by the doctor and the reception staff.',
       bullets: [
@@ -196,8 +197,12 @@ export const profile = {
       summary:
         'A Databricks lakehouse that will ingest synthetic Costa Rican electronic invoices (XML) and process them through a medallion architecture (Bronze → Silver → Gold) with PySpark: incremental ingestion with Auto Loader, data quality rules with a quarantine table, and a star schema for business KPIs. All data is synthetic.',
       bullets: [],
-      // Phases already finished in the repo, e.g. ['Phase 0: design and repository'].
-      phasesDone: [],
+      // "Done so far" bullets (max 3). Only what is finished in the repo; it has not been run on a Databricks workspace yet.
+      phasesDone: [
+        'Medallion design (Bronze, Silver, Gold) documented as ADRs: Delta Lake, Auto Loader, quarantine of invalid records.',
+        'Reproducible synthetic invoice generator with controlled data quality errors.',
+        'Unit-tested PySpark data quality rules and CI with GitHub Actions (lint and tests).',
+      ],
       diagram: 'lakehouse',
       repo: 'https://github.com/VictorOcampo21/datalakehouse-practice',
     },
@@ -216,12 +221,12 @@ export const profile = {
     { group: 'Data Tools & Platforms', items: ['SSIS', 'Apache NiFi', 'SSRS', 'Snowflake', 'Power BI'] },
     { group: 'Databases & Storage', items: ['SQL Server (T-SQL)', 'PostgreSQL', 'MySQL', 'Isilon'] },
     { group: 'Programming', items: ['SQL', 'Python', 'C#', 'Go', 'JavaScript'] },
-    { group: 'Cloud & DevOps', items: ['Microsoft Azure (VMs, Azure Database for PostgreSQL, Networking, Nginx)', 'Docker', 'Git', 'Linux'] },
+    { group: 'Cloud & DevOps', items: ['Microsoft Azure (VMs, Azure Database for PostgreSQL, Networking, Nginx)', 'Git', 'Linux'] },
     { group: 'Languages', items: ['Spanish (Native)', 'English (B2+, Professional Working Proficiency)'] },
   ],
 
-  // Shown apart from the skills above, marked "In training" (CV v4).
-  training: ['Databricks', 'Apache Spark', 'Microsoft Fabric'],
+  // Shown apart from the skills above, marked "In training" (CV v6).
+  training: ['Databricks', 'PySpark', 'Microsoft Fabric'],
 
   certifications: [
     {

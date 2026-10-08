@@ -65,6 +65,17 @@ const badge = computed(() => {
           {{ tech }}
         </li>
       </ul>
+      <div v-if="project.phasesDone?.length" class="mt-5 rounded-xl border border-line bg-surface-2/60 p-4">
+        <p class="text-xs font-bold tracking-wider text-accent-2 uppercase">Done so far</p>
+        <ul class="mt-3 space-y-2">
+          <li v-for="item in project.phasesDone" :key="item" class="flex gap-2.5 text-sm leading-relaxed text-muted">
+            <svg class="mt-1 size-3.5 shrink-0 text-accent-2" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" />
+            </svg>
+            <span>{{ item }}</span>
+          </li>
+        </ul>
+      </div>
       <a
         v-if="project.repo"
         :href="project.repo"
@@ -131,10 +142,7 @@ const badge = computed(() => {
         </button>
         <FlowDiagram ref="flow" :diagram="diagram" />
         <div v-if="project.status !== 'done'" class="mx-auto mt-4 max-w-md text-center text-sm text-muted">
-          <p v-if="project.phasesDone?.length">
-            Completed: {{ project.phasesDone.join(' · ') }}
-          </p>
-          <p v-else>Planned architecture. The repository will be published as each phase is completed.</p>
+          <p>Planned architecture.</p>
         </div>
       </div>
 

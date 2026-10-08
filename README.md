@@ -10,7 +10,7 @@ Live: https://victorocampomarin.com
 |---|---|
 | Text: about, experience, projects, skills, certifications, contact | `src/data/profile.js` |
 | Project flow diagrams (nodes and arrows) | `src/diagrams/*.js` |
-| CV PDF (currently v4) | Replace the file in `public/` and update `cvFile` in `src/data/profile.js` |
+| CV PDF (currently v6) | Replace the file in `public/` and update `cvFile` in `src/data/profile.js` |
 | "In training" skills, NiFi "Why" tab | `training` and `projects[0].decisions` in `src/data/profile.js` |
 | Page title, description, Open Graph | `index.html` (share image: `public/og.png`, 1200×630) |
 | Hero numbers, rotating roles, "Now" card, tech band | `stats`, `roles`, `now`, `marquee` in `src/data/profile.js` |
