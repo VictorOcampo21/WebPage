@@ -2,9 +2,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 
-// GitHub Pages serves this repo at https://victorocampo21.github.io/WebPage/
-// If you move the site to a user page (VictorOcampo21.github.io) or Vercel/Netlify, change base to '/'.
+// Served from the custom domain https://victorocampomarin.com (GitHub Pages), so the base is the root.
 export default defineConfig({
-  base: '/WebPage/',
+  base: '/',
   plugins: [vue(), tailwindcss()],
 })

@@ -2,7 +2,7 @@
 
 Personal portfolio site (Data Engineer). Vue 3 + Vite + Tailwind CSS v4, static single page, deployed to GitHub Pages.
 
-Live: https://victorocampo21.github.io/WebPage/
+Live: https://victorocampomarin.com
 
 ## Update the content
 
@@ -23,10 +23,12 @@ Lakehouse card: when the repository has its first phase published, set `status: 
 npm install
 npm run dev       # development server
 npm run build     # production build in dist/
-npm run preview   # serve the build at http://localhost:4173/WebPage/
+npm run preview   # serve the build at http://localhost:4173/
 ```
 
 ## Deploy
 
 Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it to GitHub Pages.
-One-time setup: repository **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+One-time setup: repository **Settings → Pages → Build and deployment → Source: GitHub Actions**, and **Custom domain: victorocampomarin.com** with **Enforce HTTPS**.
+
+Domain DNS (GoDaddy): four `A` records on `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, and a `CNAME` on `www` → `victorocampo21.github.io`. `public/CNAME` holds the domain.
