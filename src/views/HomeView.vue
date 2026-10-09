@@ -8,35 +8,41 @@ import OutputStream from '../components/terminal/OutputStream.vue'
 import LineageMap from '../components/terminal/LineageMap.vue'
 import MapTree from '../components/terminal/MapTree.vue'
 
-const { visited, explored, total } = useVisited()
+const { visited } = useVisited()
 const cvHref = inject('cvHref')
 const btn =
-  'inline-flex items-center gap-2 rounded-md border px-3.5 py-2 font-mono text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
+  'inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-md border px-3.5 py-2 text-left font-mono text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
+// Shell comment for a command: dimmed, on its own line under the command
+const comment = 'basis-full text-xs text-muted'
 </script>
 
 <template>
   <OutputStream>
-    <section aria-label="whoami" class="lg:flex lg:items-end lg:justify-between lg:gap-10">
-      <div>
+    <section aria-label="whoami" class="lg:flex lg:items-start lg:justify-between lg:gap-10">
+      <div class="min-w-0">
         <h1 data-view-heading tabindex="-1" class="font-mono text-3xl font-semibold tracking-tight text-fg outline-none sm:text-4xl">
           {{ profile.name }}
         </h1>
         <p class="mt-2 font-mono text-base text-accent sm:text-lg">{{ profile.title }}</p>
         <p class="mt-3 max-w-2xl text-lg leading-relaxed text-muted">{{ profile.tagline }}</p>
-        <p class="mt-2 font-mono text-sm text-muted">
-          <span class="text-accent" aria-hidden="true">●</span> {{ profile.location }} · open to Data Engineer opportunities
-          (remote, hybrid or on-site)
+        <p class="mt-3 font-mono text-sm text-muted">
+          <span class="text-accent" aria-hidden="true">●&nbsp;</span><span class="text-fg">{{ profile.status.service }}</span>:
+          <span class="text-accent">{{ profile.status.state }}</span> · {{ profile.status.text }}
         </p>
       </div>
-      <div class="mt-6 flex flex-wrap gap-2.5 lg:mt-0 lg:shrink-0 lg:flex-col lg:items-stretch">
+
+      <div class="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap lg:mt-1 lg:w-80 lg:shrink-0 lg:flex-col lg:flex-nowrap">
         <button type="button" :class="[btn, 'border-accent bg-accent font-semibold text-accent-fg hover:opacity-90']" @click="navigate('projects')">
           ./projects --flows <span aria-hidden="true">★</span>
         </button>
-        <a :href="cvHref" download :class="[btn, 'border-line text-fg hover:border-accent hover:text-accent']">
-          <Icon name="download" :size="14" /> download cv
+        <a :href="cvHref" :download="profile.cvFile" :class="[btn, 'border-line text-fg hover:border-accent hover:text-accent']">
+          <Icon name="download" :size="14" /> download cv<span :class="comment"># pdf, 1 page</span>
         </a>
         <button type="button" :class="[btn, 'border-line text-fg hover:border-accent hover:text-accent']" @click="navigate('contact')">
-          ./contact.sh
+          ./contact.sh<span :class="comment"># email · linkedin · github</span>
+        </button>
+        <button type="button" :class="[btn, 'border-line text-fg hover:border-accent hover:text-accent']" @click="navigate('plain')">
+          ./portfolio --plain<span :class="comment"># everything on one page</span>
         </button>
       </div>
     </section>
@@ -48,8 +54,6 @@ const btn =
       <div class="hidden lg:block">
         <LineageMap
           :visited="visited"
-          :explored="explored"
-          :total="total"
           :name="profile.name"
           :role="profile.role"
           :location="profile.location"
@@ -58,7 +62,6 @@ const btn =
       </div>
       <div class="mt-4 lg:hidden">
         <MapTree :visited="visited" :name="profile.name" @navigate="navigate" />
-        <p class="mt-3 font-mono text-xs text-muted">{{ explored }}/{{ total }} explored</p>
       </div>
     </section>
 

@@ -57,7 +57,7 @@ const rows = [
       <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-6">
         <dt class="w-20 shrink-0 text-muted">cv</dt>
         <dd>
-          <a :href="cvHref" download class="inline-flex items-center gap-2 text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent">
+          <a :href="cvHref" :download="profile.cvFile" class="inline-flex items-center gap-2 text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent">
             <Icon name="download" :size="14" />{{ profile.cvFile }}
           </a>
         </dd>

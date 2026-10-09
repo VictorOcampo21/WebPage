@@ -23,5 +23,7 @@ export function markVisited(id) {
 
 export function useVisited() {
   const explored = computed(() => sections.filter((s) => visited.value.has(s.id)).length)
-  return { visited, explored, total: sections.length }
+  // Sections in the order they were first opened (a Set keeps insertion order), for `$ history`
+  const history = computed(() => [...visited.value].map((id) => sections.find((s) => s.id === id)).filter(Boolean))
+  return { visited, explored, history, total: sections.length }
 }

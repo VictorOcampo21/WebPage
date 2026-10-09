@@ -9,8 +9,6 @@ import { useReducedMotion } from '../../composables/useReducedMotion.js'
 
 const props = defineProps({
   visited: { type: Object, required: true },
-  explored: { type: Number, required: true },
-  total: { type: Number, required: true },
   name: { type: String, required: true },
   role: { type: String, required: true },
   location: { type: String, required: true },
@@ -98,7 +96,6 @@ const animate = computed(() => inView.value && !reduced.value)
       <p class="mt-3"><span class="text-muted">- - -</span> pending</p>
       <p class="mt-1"><span class="text-accent">───</span> explored</p>
       <p class="mt-1"><span class="text-warn">★</span> start here</p>
-      <p class="mt-2 text-accent">{{ explored }}/{{ total }} explored</p>
     </div>
 
     <!-- Section nodes -->

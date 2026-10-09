@@ -23,7 +23,7 @@ const fmt = (n) => n.toLocaleString('en-US')
         </thead>
         <tbody>
           <tr v-for="s in profile.stats" :key="s.label" class="border-b border-dashed border-line last:border-b-0">
-            <td class="w-28 py-2.5 pr-4 text-xl font-semibold text-accent tabular-nums">{{ fmt(s.value) }}{{ s.suffix }}</td>
+            <td class="w-28 py-2.5 pr-4 text-xl font-semibold text-accent tabular-nums">{{ s.prefix || '' }}{{ fmt(s.value) }}{{ s.suffix }}</td>
             <td class="py-2.5 font-sans text-base text-fg">{{ s.label }}</td>
           </tr>
         </tbody>

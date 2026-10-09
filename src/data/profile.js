@@ -1,5 +1,5 @@
 // All website content lives here. Edit this file when the CV changes.
-// Source of truth: cv/Victor_Ocampo_Marin_Data_Engineer_v8.tex and docs/master-resume.md.
+// Source of truth: the current CV (public/Victor_Ocampo_Marin.pdf) and docs/master-resume.md.
 // Flow diagrams live in src/diagrams/ (one file per project).
 
 export const profile = {
@@ -8,12 +8,16 @@ export const profile = {
   location: 'Costa Rica',
   // Shown under the name on the home screen. Must match the CV and LinkedIn headline.
   title: 'Data Engineer · SQL Server, ETL & Apache NiFi',
+  // systemctl-style status line on the home screen
+  status: { service: 'victor.service', state: 'active (running)', text: 'open to Data Engineer roles · Costa Rica · remote | hybrid | on-site' },
+
   tagline:
     'I build data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.',
 
   // "by_the_numbers" table in About. Only confirmed facts (docs/master-resume.md); never estimate.
   stats: [
-    { value: 5, suffix: '', label: 'years building software and data systems' },
+    { value: 3, suffix: '+', label: 'years of full stack development' },
+    { value: 2, prefix: '~', suffix: '', label: 'years in data engineering (since 2025)' },
     { value: 3, suffix: '', label: 'concurrent client data projects' },
     { value: 1000, suffix: '+', label: 'patient forms centralized across 5 clinics' },
     { value: 60, suffix: '%', label: 'less HR request processing time (500+ employees)' },
@@ -26,8 +30,8 @@ export const profile = {
     'Training in Databricks, PySpark and Microsoft Fabric; starting a personal Databricks lakehouse project.',
   ],
 
-  // Served from public/. Replace the file there and update the name here when the CV changes.
-  cvFile: 'Victor_Ocampo_Marin_Data_Engineer_v8.pdf',
+  // Served from public/. Keep the file name as just the name: ATS parsers read it.
+  cvFile: 'Victor_Ocampo_Marin.pdf',
 
   links: {
     email: 'victorocampomarin21@gmail.com',
@@ -36,9 +40,9 @@ export const profile = {
   },
 
   about: [
-    "I'm a Data Engineer with 5 years of software engineering experience: 3+ years of full stack development and data engineering since 2025, building data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.",
+    "I'm a Data Engineer with 5 years of software engineering experience: 3+ years of full stack development and nearly 2 years in data engineering, building data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.",
     "Today I'm responsible for data development across three concurrent client projects at a data outsourcing firm: data ingestion, file migration and SSIS modernization. I design and build the Apache NiFi flows for two of them.",
-    'Before data engineering I was a full stack engineer (C#/.NET, Go, Vue.js, Django), so I care about the whole path: from the source system to the person reading the dashboard. I am used to explaining technical work to non-technical users.',
+    'My background is in full stack engineering (C#/.NET, Go, Vue.js, Django), so I care about the whole path: from the source system to the person reading the dashboard. I am used to explaining technical work to non-technical users.',
     "I'm currently training in Databricks, PySpark and Microsoft Fabric, and starting a personal Databricks lakehouse project.",
   ],
 
@@ -53,7 +57,7 @@ export const profile = {
         'Built a metadata-driven file migration pipeline to Isilon storage with NiFi, Python, and SQL Server: a metadata table drives each transfer, and files are renamed by file ID and verified by Python scripts.',
         'Ensured end-to-end integrity: rejects corrupted or encrypted files, verifies SHA-256 hashes at the destination, retries failed transfers up to a limit, and logs every result and error to SQL Server audit tables.',
         'Build a NiFi log ingestion flow that loads application logs from multiple virtual machines into a database the analytics team uses to feed an AI support agent.',
-        'Modernize legacy SSIS ETL and SQL processes for a regional financial institution in a 5-person team: adapt existing packages to new tables and servers, troubleshoot incremental loads, and resolve data tickets.',
+        'Modernize legacy SSIS ETL and SQL processes for a regional financial institution: adapt existing packages to new tables and servers, troubleshoot incremental loads, and resolve data tickets.',
       ],
       tags: ['Apache NiFi', 'Python', 'SQL Server', 'Isilon', 'SSIS'],
     },
@@ -64,7 +68,7 @@ export const profile = {
       location: 'Costa Rica',
       bullets: [
         'FactuBot: built a Python (Django) ETL bot for multiple accountants that pulls XML invoices from Gmail on a schedule, deduplicates and validates them against Costa Rica tax authority (Hacienda) rules, routes failures to an error queue, and loads Azure Database for PostgreSQL for VAT and P&L KPIs.',
-        'OftaData: gathered requirements with the doctor and trained staff; designed the PostgreSQL database, Go backend, Vue.js frontend, and Azure deployment (VM, networking, firewall, SSL) of a system centralizing 1,000+ patient forms with medical images across 5 clinics; daily database and image backups (7-day retention) restored data after real incidents.',
+        'OftaData: gathered requirements with the doctor and trained staff; designed the PostgreSQL database, Go backend, Vue.js frontend, and Azure deployment (VM, firewall, SSL) of a system centralizing 1,000+ patient forms with medical images across 5 clinics; daily database and image backups (7-day retention) restored data after real incidents.',
       ],
       tags: ['Python', 'Django', 'PostgreSQL', 'Go', 'Vue.js', 'Azure'],
     },
@@ -173,7 +177,7 @@ export const profile = {
         ['Data model', 'each patient has a profile, a clinical history (consultation forms) and a surgical history (signed surgery forms).'],
         ['Images', 'uploaded from the browser, compressed and optimized, stored on the VM’s disk, with their paths kept in PostgreSQL.'],
         ['Backups', 'daily automated backups of the database and the images with 7-day retention, already used to restore data after real incidents.'],
-        ['Security', 'role-based access, HTTPS with an SSL certificate, firewall and network rules on Azure, and controlled SSH access.'],
+        ['Security', 'role-based access, HTTPS with an SSL certificate, firewall rules on Azure, and controlled SSH access.'],
         ['Appointments', 'appointment calendar with WhatsApp reminders to patients.'],
       ],
       diagram: 'oftadata',
@@ -204,7 +208,7 @@ export const profile = {
     title: 'Other client data projects',
     items: [
       'Log ingestion flow (in progress) for a government judicial entity: Apache NiFi collects application logs from multiple virtual machines, extracts the key fields and loads them into a database that the analytics team uses to feed KPIs to an AI support agent.',
-      'Modernization of legacy SSIS ETL and SQL processes for a regional financial institution, within a five-person data team: adapting existing packages to new tables and servers, troubleshooting incremental loads and resolving data tickets.',
+      'Modernization of legacy SSIS ETL and SQL processes for a regional financial institution: adapting existing packages to new tables and servers, troubleshooting incremental loads and resolving data tickets.',
     ],
   },
 
@@ -213,11 +217,11 @@ export const profile = {
     { group: 'Data Tools & Platforms', items: ['SSIS', 'Apache NiFi', 'SSRS', 'Snowflake', 'Power BI'] },
     { group: 'Databases & Storage', items: ['SQL Server (T-SQL)', 'PostgreSQL', 'MySQL', 'Isilon'] },
     { group: 'Programming', items: ['SQL', 'Python', 'C#', 'Go', 'JavaScript'] },
-    { group: 'Cloud & DevOps', items: ['Microsoft Azure (VMs, Azure Database for PostgreSQL, Networking, Nginx)', 'Git', 'Linux'] },
+    { group: 'Cloud & DevOps', items: ['Microsoft Azure (VMs, Azure Database for PostgreSQL, Nginx)', 'Git', 'Bash scripting'] },
     { group: 'Languages', items: ['Spanish (Native)', 'English (B2+, Professional Working Proficiency)'] },
   ],
 
-  // Shown apart from the skills above, marked "In training" (CV v8).
+  // Shown apart from the skills above, marked "In training" (CV v10).
   training: ['Databricks', 'PySpark', 'Microsoft Fabric'],
 
   certifications: [

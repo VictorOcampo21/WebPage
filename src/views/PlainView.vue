@@ -45,7 +45,7 @@ const parts = [AboutView, ProjectsView, ExperienceView, EducationView, SkillsVie
         <a :href="`mailto:${profile.links.email}`" class="text-accent hover:underline">{{ profile.links.email }}</a>
         <a :href="profile.links.linkedin" target="_blank" rel="noopener" class="text-accent hover:underline">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
         <a :href="profile.links.github" target="_blank" rel="noopener" class="text-accent hover:underline">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
-        <a :href="cvHref" download class="inline-flex items-center gap-1.5 text-accent hover:underline"><Icon name="download" :size="13" />CV (PDF)</a>
+        <a :href="cvHref" :download="profile.cvFile" class="inline-flex items-center gap-1.5 text-accent hover:underline"><Icon name="download" :size="13" />CV (PDF)</a>
       </p>
     </header>
     <component :is="part" v-for="(part, i) in parts" :key="i" plain />

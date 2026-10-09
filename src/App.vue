@@ -39,7 +39,7 @@ provide('cvHref', cvHref)
 
 const route = useHashRoute()
 const reduced = useReducedMotion()
-const { visited, explored, total } = useVisited()
+const { visited, history } = useVisited()
 
 // ---------- Run sequence: type the command, clear, print the output ----------
 const shown = shallowRef(null) // route currently printed
@@ -121,20 +121,31 @@ const response = ref([])
 const prompt = ref(null)
 const suggestions = [
   'help', 'map', 'about', 'projects', 'experience', 'education', 'skills', 'certs', 'contact',
-  'cv', 'plain', 'next', 'prev', 'theme light', 'theme dark', 'clear',
+  'cv', 'plain', 'next', 'prev', 'history', 'theme light', 'theme dark', 'clear',
   ...profile.projects.map((p) => `projects ${p.id}`),
 ]
 
+// Each command with a short, plain-English description
+const helpEntries = [
+  ['about', 'who I am and what I am working on now'],
+  ['projects', 'data flows I built: NiFi migration, FactuBot, OftaData, lakehouse'],
+  ['experience', 'jobs and what I delivered in each one'],
+  ['education', 'university degree'],
+  ['skills', 'tools and technologies I use, as JSON'],
+  ['certs', 'certifications, with links to verify them'],
+  ['contact', 'email, LinkedIn, GitHub and CV'],
+  ['cv', 'download my CV (PDF, 1 page)'],
+  ['plain', 'everything on one page, easy to read or print'],
+  ['map', 'back to the lineage map (home screen)'],
+  ['next, prev', 'go to the next or previous section'],
+  ['history', 'sections you have already opened'],
+  ['theme', 'switch dark / light (theme dark, theme light)'],
+]
 function helpLines() {
   return [
     'available commands:',
-    ...sections.map((s) => `  ${aliases[s.id][0].padEnd(12)} ${s.cmd}`),
-    '  map          back to the lineage map',
-    '  next, prev   move through the sections',
-    '  cv           download the CV (PDF)',
-    '  plain        everything on one page',
-    '  theme light  or theme dark',
-    'keys: 1-7 jump · n/p next/prev · esc map · / prompt',
+    ...helpEntries.map(([cmd, desc]) => `  ${cmd.padEnd(12)} ${desc}`),
+    'keys: 1-7 jump to a section · n / p next / previous · esc map · / type here',
   ]
 }
 
@@ -156,6 +167,12 @@ function execute(text) {
   if (cmd === 'next' || cmd === 'n') return next.value && navigate(next.value.id)
   if (cmd === 'prev' || cmd === 'p') return navigate(prev.value ? prev.value.id : 'home')
   if (['cv', 'resume', 'download cv'].includes(cmd)) return downloadCv()
+  if (cmd === 'history') {
+    response.value = history.value.length
+      ? history.value.map((h, i) => `  ${String(i + 1).padStart(2)}  ${h.cmd}`)
+      : ['history is empty: open a section from the map']
+    return
+  }
   if (cmd.startsWith('theme')) {
     const mode = cmd.split(' ')[1]
     if (mode === 'light' || mode === 'dark') return setTheme(mode)
@@ -168,7 +185,7 @@ function execute(text) {
   for (const [id, words] of Object.entries(aliases)) {
     if (words.includes(cmd)) return navigate(id)
   }
-  response.value = [`command not found: ${text.trim()} — type help`]
+  response.value = [`command not found: ${text.trim()}. try 'help'`]
 }
 
 function showHelp() {
@@ -178,7 +195,7 @@ function showHelp() {
 
 // ---------- Keyboard shortcuts (ignored while typing in the prompt) ----------
 function onKey(e) {
-  if (e.ctrlKey || e.metaKey || e.altKey) return
+  if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return
   const t = e.target
   const inField = t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement || t?.isContentEditable
   if (typing.value && !inField) {
@@ -243,7 +260,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
             <ThemeToggle />
             <a
               :href="cvHref"
-              download
+              :download="profile.cvFile"
               class="inline-flex h-8 items-center gap-1.5 rounded-md bg-accent px-3 font-mono text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <Icon name="download" :size="13" /> cv
@@ -268,7 +285,9 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <template v-if="shown">
           <component :is="components[shown.id]" :key="shown.id" />
 
+          <!-- On the home screen the map is the menu, so no footer navigation there -->
           <div
+            v-if="shown.id !== 'home'"
             class="no-print mt-12 flex flex-wrap items-center gap-3 border-t border-dashed border-line pt-5 font-mono text-sm"
           >
             <button
@@ -295,7 +314,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
             >
               next: $ {{ next.cmd }} →
             </button>
-            <span v-if="!next && shown.id !== 'home' && shown.id !== 'plain'" class="text-muted">end of pipeline · {{ explored }}/{{ total }} explored</span>
+            <span v-if="!next && shown.id !== 'home' && shown.id !== 'plain'" class="text-muted">end of pipeline</span>
           </div>
         </template>
       </main>
@@ -306,9 +325,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         :current="current"
         :prev="prev"
         :next="next"
-        :visited="visited"
-        :explored="explored"
-        :total="total"
+        :history="history"
         @navigate="navigate"
         @help="showHelp"
       />
