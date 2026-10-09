@@ -2,11 +2,11 @@
 import { computed, ref, useId } from 'vue'
 import FlowDiagram from './FlowDiagram.vue'
 import Icon from './Icon.vue'
-import SpotlightCard from './SpotlightCard.vue'
 import { useReducedMotion } from '../composables/useReducedMotion.js'
 import { diagrams } from '../diagrams/index.js'
 
-const props = defineProps({ project: { type: Object, required: true } })
+// expanded: show every panel at once (plain document / print) instead of tabs.
+const props = defineProps({ project: { type: Object, required: true }, expanded: { type: Boolean, default: false } })
 
 const uid = useId()
 const diagram = computed(() => diagrams[props.project.diagram])
@@ -43,13 +43,18 @@ const badge = computed(() => {
 </script>
 
 <template>
-  <SpotlightCard as="article" class="overflow-hidden">
-    <div class="p-5 sm:p-7">
+  <article
+    :class="[
+      'overflow-hidden rounded-lg border border-line bg-surface',
+      { 'xl:grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]': !expanded },
+    ]"
+  >
+    <div :class="['p-5 sm:p-7', { 'xl:border-r xl:border-line': !expanded }]">
       <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <p class="font-mono text-xs font-medium tracking-wide text-accent uppercase">{{ project.kind }}</p>
+        <p class="font-mono text-xs font-medium tracking-wide text-accent-2 uppercase">{{ project.kind }}</p>
         <span
           v-if="badge"
-          class="rounded-full border border-amber-500/40 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-800 dark:text-amber-300"
+          class="rounded border border-warn/40 bg-warn/10 px-2 py-0.5 font-mono text-xs font-semibold text-warn"
         >
           {{ badge }}
         </span>
@@ -60,13 +65,13 @@ const badge = computed(() => {
         <li
           v-for="tech in project.stack"
           :key="tech"
-          class="rounded-md bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent"
+          class="rounded bg-accent-soft px-2 py-0.5 font-mono text-xs text-accent"
         >
           {{ tech }}
         </li>
       </ul>
-      <div v-if="project.phasesDone?.length" class="mt-5 rounded-xl border border-line bg-surface-2/60 p-4">
-        <p class="text-xs font-bold tracking-wider text-accent-2 uppercase">Done so far</p>
+      <div v-if="project.phasesDone?.length" class="mt-5 rounded-md border border-line bg-surface-2/60 p-4">
+        <p class="font-mono text-xs font-medium tracking-wide text-accent uppercase">Done so far</p>
         <ul class="mt-3 space-y-2">
           <li v-for="item in project.phasesDone" :key="item" class="flex gap-2.5 text-sm leading-relaxed text-muted">
             <svg class="mt-1 size-3.5 shrink-0 text-accent-2" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -90,9 +95,9 @@ const badge = computed(() => {
       </a>
     </div>
 
-    <div class="border-t border-line">
+    <div :class="['border-t border-line', { 'xl:border-t-0': !expanded }]">
       <div
-        v-if="tabs.length > 1"
+        v-if="tabs.length > 1 && !expanded"
         role="tablist"
         :aria-label="`${project.title} views`"
         class="flex gap-1 border-b border-line px-5 sm:px-7"
@@ -118,20 +123,21 @@ const badge = computed(() => {
         </button>
       </div>
       <p v-else class="px-5 pt-4 font-mono text-xs font-medium tracking-wide text-muted uppercase sm:px-7">
+        <span v-if="expanded" aria-hidden="true">## </span>
         {{ tabs[0].label }}
       </p>
 
       <div
-        v-show="active === 'flow'"
+        v-show="expanded || active === 'flow'"
         :id="`${uid}-panel-flow`"
-        :role="tabs.length > 1 ? 'tabpanel' : undefined"
-        :aria-labelledby="tabs.length > 1 ? `${uid}-tab-flow` : undefined"
+        :role="tabs.length > 1 && !expanded ? 'tabpanel' : undefined"
+        :aria-labelledby="tabs.length > 1 && !expanded ? `${uid}-tab-flow` : undefined"
         class="diagram-canvas relative px-3 py-6 sm:px-6"
       >
         <button
           v-if="!reduced"
           type="button"
-          class="absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-md border border-line bg-surface/90 px-2.5 py-1 font-mono text-xs text-muted backdrop-blur transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
+          class="no-print absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 rounded border border-line bg-surface/90 px-2.5 py-1 font-mono text-xs text-muted backdrop-blur transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
           @click="flow?.replay()"
         >
           <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
@@ -148,12 +154,13 @@ const badge = computed(() => {
 
       <div
         v-if="hasDetails"
-        v-show="active === 'details'"
+        v-show="expanded || active === 'details'"
         :id="`${uid}-panel-details`"
-        role="tabpanel"
-        :aria-labelledby="`${uid}-tab-details`"
+        :role="expanded ? undefined : 'tabpanel'"
+        :aria-labelledby="expanded ? undefined : `${uid}-tab-details`"
         class="px-5 py-6 sm:px-7"
       >
+        <p v-if="expanded" class="mb-4 font-mono text-xs font-medium tracking-wide text-muted uppercase"><span aria-hidden="true">## </span>Details</p>
         <ul class="space-y-3">
           <li v-for="[term, text] in project.bullets" :key="term" class="flex gap-3 leading-relaxed text-muted">
             <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
@@ -164,17 +171,17 @@ const badge = computed(() => {
 
       <div
         v-if="project.decisions?.length"
-        v-show="active === 'why'"
+        v-show="expanded || active === 'why'"
         :id="`${uid}-panel-why`"
-        role="tabpanel"
-        :aria-labelledby="`${uid}-tab-why`"
+        :role="expanded ? undefined : 'tabpanel'"
+        :aria-labelledby="expanded ? undefined : `${uid}-tab-why`"
         class="px-5 py-6 sm:px-7"
       >
-        <p class="mb-4 text-xs font-bold tracking-wider text-accent-2 uppercase">Design decisions</p>
+        <p class="mb-4 font-mono text-xs font-medium tracking-wide text-muted uppercase"><span aria-hidden="true">## </span>Design decisions</p>
         <ol class="space-y-4">
           <li v-for="([title, text], i) in project.decisions" :key="title" class="flex gap-4">
             <span
-              class="grid size-7 shrink-0 place-items-center rounded-md border border-accent/30 bg-accent-soft font-mono text-xs text-accent"
+              class="grid size-7 shrink-0 place-items-center rounded border border-accent/30 bg-accent-soft font-mono text-xs text-accent"
               aria-hidden="true"
             >
               {{ i + 1 }}
@@ -187,5 +194,5 @@ const badge = computed(() => {
         </ol>
       </div>
     </div>
-  </SpotlightCard>
+  </article>
 </template>

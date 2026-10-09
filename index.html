@@ -9,8 +9,7 @@
       content="Victor Ocampo Marin, Data Engineer in Costa Rica (SQL Server, ETL &amp; Apache NiFi). Data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python."
     />
     <meta name="author" content="Victor Ocampo Marin" />
-    <meta name="theme-color" content="#f5f7fc" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#060b17" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#050709" />
     <link rel="canonical" href="https://victorocampomarin.com/" />
 
     <meta property="og:type" content="profile" />
@@ -37,15 +36,30 @@
     />
 
     <script>
-      // Apply the saved theme (or the system theme) before first paint to avoid a flash.
+      // Dark terminal by default; light only if the visitor chose it. Applied before paint to avoid a flash.
       ;(function () {
         var stored = null
         try {
           stored = localStorage.getItem('theme')
         } catch (e) {}
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
-        document.documentElement.classList.toggle('dark', dark)
+        document.documentElement.classList.toggle('dark', stored !== 'light')
       })()
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Victor Ocampo Marin",
+        "jobTitle": "Data Engineer",
+        "description": "Data Engineer in Costa Rica: SQL Server, ETL (SSIS, Apache NiFi) and Python.",
+        "url": "https://victorocampomarin.com/",
+        "email": "mailto:victorocampomarin21@gmail.com",
+        "address": { "@type": "PostalAddress", "addressCountry": "CR" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universidad Nacional" },
+        "knowsAbout": ["Data Engineering", "SQL Server", "SSIS", "Apache NiFi", "Python", "ETL", "Data Modeling"],
+        "sameAs": ["https://www.linkedin.com/in/victor-ocampo-marin-69466122b", "https://github.com/VictorOcampo21"]
+      }
     </script>
   </head>
   <body class="font-sans">

@@ -6,17 +6,12 @@ export const profile = {
   name: 'Victor Ocampo Marin',
   role: 'Data Engineer',
   location: 'Costa Rica',
-  // Hero
-  firstName: 'Victor',
-  lastName: 'Ocampo Marin',
-  eyebrow: 'Data Engineer based in Costa Rica',
-  // Shown under the name. Must match the CV and LinkedIn headline.
+  // Shown under the name on the home screen. Must match the CV and LinkedIn headline.
   title: 'Data Engineer · SQL Server, ETL & Apache NiFi',
-  heroStack: ['SQL Server', 'SSIS', 'Apache NiFi', 'Python', 'Azure'],
   tagline:
     'I build data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.',
 
-  // "By the numbers" in About. Only confirmed facts (docs/master-resume.md); never estimate.
+  // "by_the_numbers" table in About. Only confirmed facts (docs/master-resume.md); never estimate.
   stats: [
     { value: 5, suffix: '', label: 'years building software and data systems' },
     { value: 3, suffix: '', label: 'concurrent client data projects' },
@@ -24,15 +19,12 @@ export const profile = {
     { value: 60, suffix: '%', label: 'less HR request processing time (500+ employees)' },
   ],
 
-  // "Now" card in About (from the GitHub profile README).
+  // "now" list in About (from the GitHub profile README).
   now: [
     'Data development across three concurrent client projects: data ingestion, file migration and SSIS modernization.',
     'Designing and building the Apache NiFi flows for two of them.',
     'Training in Databricks, PySpark and Microsoft Fabric; starting a personal Databricks lakehouse project.',
   ],
-
-  // Scrolling band between sections.
-  marquee: ['SQL Server', 'T-SQL', 'SSIS', 'Apache NiFi', 'Python', 'PostgreSQL', 'Azure', 'Linux', 'Git'],
 
   // Served from public/. Replace the file there and update the name here when the CV changes.
   cvFile: 'Victor_Ocampo_Marin_Data_Engineer_v6.pdf',

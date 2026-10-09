@@ -1,83 +1,81 @@
 @import "tailwindcss";
 
-/* Dark mode follows the .dark class on <html>, set before paint in index.html. */
+/* Theme: dark terminal by default; light "paper" when <html> lacks .dark (set before paint in index.html). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg: #f5f7fc;
-  --surface: #ffffff;
-  --surface-2: #eef2fa;
-  --fg: #0b1324;
-  --muted: #475569;
-  --line: #dfe5ef;
-  --accent: #1d4ed8;
-  --accent-2: #0e7490;
-  --accent-soft: #e8efff;
+  --bg: #efece4;
+  --surface: #fbf9f4;
+  --surface-2: #f1eee6;
+  --fg: #1c2421;
+  --muted: #56615c;
+  --line: #d9d4c7;
+  --accent: #0b7046;
+  --accent-2: #1d5f96;
+  --accent-soft: rgba(11, 112, 70, 0.09);
   --accent-fg: #ffffff;
-  --packet: #0891b2;
-  --grid: rgba(15, 23, 42, 0.06);
-  --glow-1: rgba(37, 99, 235, 0.16);
-  --glow-2: rgba(6, 182, 212, 0.14);
-  --spot: rgba(37, 99, 235, 0.08);
+  --warn: #9a5b00;
+  --packet: #0b7046;
+  --grid: rgba(28, 36, 33, 0.07);
+  --chrome: #e6e2d8;
 
   /* Diagram tokens */
-  --d-node: #ffffff;
-  --d-stroke: #cbd5e1;
-  --d-text: #1e293b;
-  --d-text-strong: #0f172a;
-  --d-edge: #94a3b8;
-  --d-accent: #2563eb;
-  --d-accent-fill: #eff6ff;
-  --d-error: #dc2626;
-  --d-error-fill: #fef2f2;
-  --d-warn: #b45309;
-  --d-warn-fill: #fffbeb;
-  --d-bronze: #a0522d;
-  --d-bronze-fill: #fbf1ea;
-  --d-silver: #64748b;
-  --d-silver-fill: #f1f5f9;
-  --d-gold: #a16207;
-  --d-gold-fill: #fefce8;
-  --d-group: #93c5fd;
-  --d-grid: #e2e8f0;
+  --d-node: #fbf9f4;
+  --d-stroke: #c9c3b4;
+  --d-text: #26302c;
+  --d-text-strong: #111816;
+  --d-edge: #8d978f;
+  --d-accent: #0b7046;
+  --d-accent-fill: rgba(11, 112, 70, 0.07);
+  --d-error: #c62828;
+  --d-error-fill: #fdf0ef;
+  --d-warn: #9a5b00;
+  --d-warn-fill: #fdf6e7;
+  --d-bronze: #9b4f22;
+  --d-bronze-fill: #f8ece3;
+  --d-silver: #5f6b72;
+  --d-silver-fill: #eef0ef;
+  --d-gold: #8a6a00;
+  --d-gold-fill: #fbf5dc;
+  --d-group: #8fb9a4;
+  --d-grid: #ddd8cb;
 }
 
 .dark {
-  --bg: #060b17;
-  --surface: #0c1426;
-  --surface-2: #101b32;
-  --fg: #e6edf7;
-  --muted: #94a3b8;
-  --line: #1a2640;
-  --accent: #6aa5ff;
-  --accent-2: #22d3ee;
-  --accent-soft: rgba(106, 165, 255, 0.12);
-  --accent-fg: #060b17;
-  --packet: #22d3ee;
-  --grid: rgba(148, 163, 184, 0.07);
-  --glow-1: rgba(59, 130, 246, 0.28);
-  --glow-2: rgba(34, 211, 238, 0.16);
-  --spot: rgba(106, 165, 255, 0.1);
+  --bg: #050709;
+  --surface: #0b0f13;
+  --surface-2: #11171d;
+  --fg: #dde6e1;
+  --muted: #8a9993;
+  --line: #1c252c;
+  --accent: #5ee39a;
+  --accent-2: #7cc4ff;
+  --accent-soft: rgba(94, 227, 154, 0.1);
+  --accent-fg: #050709;
+  --warn: #f2c14e;
+  --packet: #5ee39a;
+  --grid: rgba(140, 160, 150, 0.07);
+  --chrome: #0f1418;
 
-  --d-node: #0c1426;
-  --d-stroke: #2b3a55;
-  --d-text: #cbd5e1;
-  --d-text-strong: #f1f5f9;
-  --d-edge: #5b6b85;
-  --d-accent: #6aa5ff;
-  --d-accent-fill: rgba(106, 165, 255, 0.12);
-  --d-error: #f87171;
-  --d-error-fill: rgba(248, 113, 113, 0.12);
-  --d-warn: #fbbf24;
-  --d-warn-fill: rgba(251, 191, 36, 0.1);
+  --d-node: #0b0f13;
+  --d-stroke: #26323a;
+  --d-text: #c8d4ce;
+  --d-text-strong: #eef4f0;
+  --d-edge: #55655f;
+  --d-accent: #5ee39a;
+  --d-accent-fill: rgba(94, 227, 154, 0.08);
+  --d-error: #ff7b72;
+  --d-error-fill: rgba(255, 123, 114, 0.1);
+  --d-warn: #f2c14e;
+  --d-warn-fill: rgba(242, 193, 78, 0.08);
   --d-bronze: #e0915c;
-  --d-bronze-fill: rgba(224, 145, 92, 0.12);
-  --d-silver: #cbd5e1;
-  --d-silver-fill: rgba(203, 213, 225, 0.1);
-  --d-gold: #facc15;
-  --d-gold-fill: rgba(250, 204, 21, 0.1);
-  --d-group: #1e40af;
-  --d-grid: #18233a;
+  --d-bronze-fill: rgba(224, 145, 92, 0.1);
+  --d-silver: #c3ccd0;
+  --d-silver-fill: rgba(195, 204, 208, 0.08);
+  --d-gold: #f2d14e;
+  --d-gold-fill: rgba(242, 209, 78, 0.08);
+  --d-group: #2c5a45;
+  --d-grid: #141b20;
 }
 
 @theme inline {
@@ -93,178 +91,97 @@
   --color-accent-2: var(--accent-2);
   --color-accent-soft: var(--accent-soft);
   --color-accent-fg: var(--accent-fg);
+  --color-warn: var(--warn);
+  --color-chrome: var(--chrome);
 }
 
 html {
-  scroll-behavior: smooth;
   color-scheme: light;
 }
 html.dark {
   color-scheme: dark;
 }
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
   color: var(--fg);
   -webkit-font-smoothing: antialiased;
-}
-section[id] {
-  scroll-margin-top: 4.5rem;
 }
 ::selection {
   background: var(--accent);
   color: var(--accent-fg);
 }
 
-/* ---------- Scroll reveal (src/reveal.js) ---------- */
-.reveal {
+/* Scrollbar inside the terminal */
+.term-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+/* Blinking block caret (prompt only) */
+.caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  translate: 0 0.18em;
+  background: var(--accent);
+  animation: caret 1.05s steps(1) infinite;
+}
+@keyframes caret {
+  50% { opacity: 0; }
+}
+
+/* ---------- Output stream: blocks appear one after another (src/components/terminal/OutputStream.vue) ---------- */
+.stream.is-animated > * {
   opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 0.7s ease var(--reveal-delay, 0ms),
-    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+  animation: line-in 0.32s ease-out forwards;
+  animation-delay: calc(var(--i, 0) * 65ms);
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* ---------- Hero backdrop ---------- */
-.hero-dots {
-  background-image: radial-gradient(var(--d-grid) 1.2px, transparent 1.2px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse 70% 80% at 75% 40%, #000 30%, transparent 75%);
-}
-.hero-beam {
-  background: linear-gradient(115deg, transparent 20%, var(--glow-1) 50%, var(--glow-2) 62%, transparent 80%);
-  filter: blur(40px);
-  transform: rotate(-8deg);
-  animation: beam 14s ease-in-out infinite alternate;
-}
-@keyframes beam {
-  to { transform: rotate(-3deg) translateX(-4%); opacity: 0.75; }
-}
-.hero-gradient-text {
-  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-bottom: 0.06em;
-}
-
-/* Soft glows (contact card) */
-.glow {
-  position: absolute;
-  border-radius: 9999px;
-  pointer-events: none;
-}
-.glow-1 {
-  background: radial-gradient(circle, var(--glow-1), transparent 65%);
-}
-.glow-2 {
-  background: radial-gradient(circle, var(--glow-2), transparent 65%);
-}
-
-/* ---------- Section heading rule ---------- */
-.rule-draw {
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
-}
-.is-visible .rule-draw {
-  transform: scaleX(1);
-}
-
-/* ---------- Spotlight cards (src/components/SpotlightCard.vue) ---------- */
-.spotlight {
-  position: relative;
-  isolation: isolate;
-}
-.spotlight::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), var(--spot), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.spotlight:hover::before {
+.stream.is-animated.is-skipped > * {
+  animation: none;
   opacity: 1;
 }
-
-/* ---------- Marquee ---------- */
-.marquee-track {
-  animation: marquee 45s linear infinite;
-}
-.marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  to { transform: translateX(-50%); }
+@keyframes line-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
 }
 
-/* ---------- Experience timeline fill (scroll-driven where supported) ---------- */
-.timeline-fill {
-  transform-origin: top;
-}
-@supports (animation-timeline: view()) {
-  .timeline-fill {
-    animation: timeline-grow linear both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 65%;
-  }
-}
-@keyframes timeline-grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-/* ---------- Hero pipeline (src/components/HeroPipeline.vue) ---------- */
-.pipe-node {
-  fill: var(--surface);
-  stroke: var(--line);
-  stroke-width: 1.25;
-}
-.pipe-node.is-accent {
-  stroke: var(--accent);
-  fill: var(--accent-soft);
-}
-.pipe-node.is-error {
-  stroke: var(--d-error);
-  fill: var(--d-error-fill);
-  stroke-dasharray: 4 3;
-}
-.pipe-title {
-  fill: var(--fg);
-  font-size: 15px;
-  font-weight: 700;
-}
-.pipe-sub {
-  fill: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-}
-.pipe-edge {
+/* ---------- Lineage map (src/components/terminal/LineageMap.vue) ---------- */
+.map-edge {
   fill: none;
   stroke: var(--d-edge);
-  stroke-width: 1.5;
-  opacity: 0.7;
+  stroke-width: 1.4;
+  stroke-dasharray: 5 5;
+  transition: stroke 0.3s ease;
 }
-.pipe-edge.is-error {
-  stroke: var(--d-error);
-  stroke-dasharray: 4 4;
+.map-edge.is-done {
+  stroke: var(--accent);
+  stroke-dasharray: none;
+  opacity: 0.8;
 }
-.pipe-packet {
+.map-edge.is-hot {
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-dasharray: none;
+}
+.map-packet {
   fill: var(--packet);
   filter: drop-shadow(0 0 4px var(--packet));
 }
-.pipe-packet.is-error {
-  fill: var(--d-error);
-  filter: drop-shadow(0 0 4px var(--d-error));
+.featured-ring {
+  animation: ring 2.6s ease-out infinite;
 }
+@keyframes ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  100% { box-shadow: 0 0 0 12px transparent; }
+}
+
+/* ---------- Skills as JSON ---------- */
+.json-key { color: var(--accent-2); }
+.json-str { color: var(--accent); }
+.json-punct { color: var(--muted); }
+.json-comment { color: var(--muted); font-style: italic; }
 
 /* ---------- Flow diagrams (src/components/FlowDiagram.vue) ---------- */
 .diagram-canvas {
@@ -446,19 +363,25 @@ section[id] {
 .flow-diagram .edge-g.hl .edge:not(.tone-error):not(.tone-warn) { stroke: var(--d-accent); }
 .flow-diagram .node { cursor: default; }
 
+/* ---------- Print: the plain view becomes a clean document ---------- */
+@media print {
+  body { background: #fff; color: #000; }
+  .no-print { display: none !important; }
+  .term-outer { height: auto !important; overflow: visible !important; padding: 0 !important; }
+  .term-window { border: 0 !important; box-shadow: none !important; height: auto !important; }
+  .term-scroll { overflow: visible !important; height: auto !important; }
+  .flow-diagram .node,
+  .flow-diagram .edge-g,
+  .flow-diagram .label-g,
+  .flow-diagram .group-g { opacity: 1 !important; transform: none !important; }
+  .flow-diagram .edge.draw { stroke-dashoffset: 0 !important; }
+  .flow-diagram .packet { display: none; }
+  article, .flow-diagram { break-inside: avoid; }
+}
+
 /* ---------- Reduced motion: everything static ---------- */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .reveal,
-  .reveal.is-visible {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .hero-beam, .marquee-track, .timeline-fill {
-    animation: none !important;
-  }
-  .rule-draw { transform: none; transition: none; }
-  .spotlight::before { display: none; }
+  .caret, .featured-ring { animation: none !important; }
+  .stream.is-animated > * { animation: none; opacity: 1; }
   .flow-diagram * { transition: none !important; }
 }

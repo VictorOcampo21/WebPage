@@ -6,16 +6,19 @@ Live: https://victorocampomarin.com
 
 ## Update the content
 
+The site is a terminal: the home screen shows a lineage map, and each node "runs" a section.
+
 | What | Where |
 |---|---|
-| Text: about, experience, projects, skills, certifications, contact | `src/data/profile.js` |
+| All text: about, experience, projects, skills, certifications, contact | `src/data/profile.js` |
+| Sections, their commands, order (next/prev) and shortcut keys | `src/data/terminal.js` |
 | Project flow diagrams (nodes and arrows) | `src/diagrams/*.js` |
 | CV PDF (currently v6) | Replace the file in `public/` and update `cvFile` in `src/data/profile.js` |
-| "In training" skills, NiFi "Why" tab | `training` and `projects[0].decisions` in `src/data/profile.js` |
-| Page title, description, Open Graph | `index.html` (share image: `public/og.png`, 1200×630) |
-| Hero numbers, rotating roles, "Now" card, tech band | `stats`, `roles`, `now`, `marquee` in `src/data/profile.js` |
+| "In training" skills, NiFi "Why" tab, lakehouse "Done so far" | `training`, `projects[].decisions`, `projects[].phasesDone` in `src/data/profile.js` |
+| Page title, description, Open Graph, JSON-LD | `index.html` (share image: `public/og.png`, 1200×630) |
+| How each section looks | `src/views/*View.vue` (the plain document reuses them) |
 
-Lakehouse card: when the repository has its first phase published, set `status: 'in-progress'`, `repo: '<url>'` and list the finished phases in `phasesDone`.
+Routes: `#/` (map), `#/about`, `#/projects` (and `#/projects/<id>`), `#/experience`, `#/education`, `#/skills`, `#/certifications`, `#/contact`, `#/plain` (one-page document, printable).
 
 ## Run locally
 
