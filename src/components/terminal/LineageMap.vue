@@ -87,12 +87,12 @@ const animate = computed(() => inView.value && !reduced.value)
       :style="box(source)"
     >
       <p class="text-[11px] tracking-wider text-muted uppercase">source</p>
-      <p class="mt-1 text-lg font-semibold text-fg">{{ name.toLowerCase().replaceAll(' ', '_') }}</p>
-      <p class="mt-1 text-xs text-accent">{{ role }} · {{ location }}</p>
+      <p class="mt-1 text-xl font-semibold text-fg">{{ name.toLowerCase().replaceAll(' ', '_') }}</p>
+      <p class="mt-1 text-sm text-accent">{{ role }} · {{ location }}</p>
     </div>
 
     <!-- Legend -->
-    <div class="absolute font-mono text-xs text-muted" :style="box({ x: 730, y: 10, w: 260, h: 150 })" aria-hidden="true">
+    <div class="absolute font-mono text-sm text-muted" :style="box({ x: 730, y: 6, w: 270, h: 160 })" aria-hidden="true">
       <p class="text-[11px] tracking-wider uppercase">lineage map</p>
       <p class="mt-1 text-fg">pick a node to run it</p>
       <p class="mt-3"><span class="text-muted">- - -</span> pending</p>
@@ -118,14 +118,14 @@ const animate = computed(() => inView.value && !reduced.value)
       @focus="hovered = n.id"
       @blur="hovered = null"
     >
-      <span class="flex items-center gap-2 text-sm font-semibold text-fg">
+      <span class="flex items-center gap-2 text-[15px] font-semibold text-fg">
         {{ n.label }}
         <span v-if="n.featured" class="text-warn">★</span>
-        <span class="ml-auto text-[10px] font-normal" :class="n.done ? 'text-accent' : 'text-muted'">
+        <span class="ml-auto text-[11px] font-normal" :class="n.done ? 'text-accent' : 'text-muted'">
           {{ n.done ? 'done' : `[${n.key}]` }}
         </span>
       </span>
-      <span class="mt-1 truncate text-[11px] text-muted group-hover:text-accent">$ {{ n.cmd }}</span>
+      <span class="mt-1 truncate text-xs text-muted group-hover:text-accent">$ {{ n.cmd }}</span>
     </button>
   </div>
 </template>

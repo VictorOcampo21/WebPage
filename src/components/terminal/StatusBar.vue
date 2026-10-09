@@ -16,7 +16,8 @@ const progressLabel = computed(() => `${props.explored} of ${props.total} sectio
 </script>
 
 <template>
-  <nav aria-label="Status and navigation" class="no-print flex items-center gap-3 border-t border-line bg-chrome px-3 py-1.5 font-mono text-xs sm:px-5">
+  <nav aria-label="Status and navigation" class="no-print border-t border-line bg-chrome">
+    <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-1.5 font-mono text-[13px] sm:px-8">
     <button
       type="button"
       class="hidden shrink-0 rounded bg-accent px-2 py-0.5 font-semibold text-accent-fg sm:inline"
@@ -61,6 +62,7 @@ const progressLabel = computed(() => `${props.explored} of ${props.total} sectio
       >
         ? help
       </button>
+    </div>
     </div>
   </nav>
 </template>

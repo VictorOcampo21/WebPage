@@ -102,9 +102,7 @@ html.dark {
   color-scheme: dark;
 }
 body {
-  background-color: var(--bg);
-  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-color: var(--surface);
   color: var(--fg);
   -webkit-font-smoothing: antialiased;
 }
@@ -113,9 +111,7 @@ body {
   color: var(--accent-fg);
 }
 
-/* Scrollbar inside the terminal */
-.term-scroll {
-  scrollbar-width: thin;
+html {
   scrollbar-color: var(--line) transparent;
 }
 
@@ -367,9 +363,6 @@ body {
 @media print {
   body { background: #fff; color: #000; }
   .no-print { display: none !important; }
-  .term-outer { height: auto !important; overflow: visible !important; padding: 0 !important; }
-  .term-window { border: 0 !important; box-shadow: none !important; height: auto !important; }
-  .term-scroll { overflow: visible !important; height: auto !important; }
   .flow-diagram .node,
   .flow-diagram .edge-g,
   .flow-diagram .label-g,

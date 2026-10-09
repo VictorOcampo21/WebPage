@@ -74,7 +74,7 @@ function finish(r) {
   if (sections.some((s) => s.id === r.id)) markVisited(r.id)
   announce.value = `Showing ${views[r.id].title}`
   nextTick(() => {
-    if (scroller.value) scroller.value.scrollTop = 0
+    window.scrollTo({ top: 0 })
     // Move focus to the new view, unless the visitor is typing in the prompt
     const typingInPrompt = document.activeElement?.id === 'prompt-input'
     if (!firstRun && !typingInPrompt) document.querySelector('[data-view-heading]')?.focus({ preventScroll: true })
@@ -213,33 +213,42 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
     Skip to content
   </a>
 
-  <div class="term-outer flex h-dvh overflow-hidden sm:p-4 lg:p-6">
-    <div
-      class="term-window mx-auto flex h-dvh w-full max-w-6xl flex-col overflow-hidden border-line bg-surface shadow-2xl shadow-black/30 sm:h-[calc(100dvh-2rem)] sm:rounded-xl sm:border lg:h-[calc(100dvh-3rem)]"
-    >
-      <!-- Title bar -->
-      <header class="no-print flex items-center gap-3 border-b border-line bg-chrome px-3 py-2 sm:px-4">
-        <span class="flex gap-1.5" aria-hidden="true">
-          <span class="size-3 rounded-full bg-[#ff5f57]/80"></span>
-          <span class="size-3 rounded-full bg-[#febc2e]/80"></span>
-          <span class="size-3 rounded-full bg-[#28c840]/80"></span>
-        </span>
-        <p class="min-w-0 flex-1 truncate text-center font-mono text-xs text-muted">victor@data: ~/portfolio{{ path }}</p>
-        <div class="flex items-center gap-1.5">
-          <a
-            href="#/plain"
-            class="hidden h-7 items-center rounded-md border border-line px-2 font-mono text-xs text-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent sm:inline-flex"
+  <div class="flex min-h-dvh flex-col">
+      <!-- Title bar (sticky) -->
+      <header class="no-print sticky top-0 z-30 border-b border-line bg-chrome/95 backdrop-blur">
+        <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2 sm:px-8">
+          <span class="flex gap-1.5" aria-hidden="true">
+            <span class="size-3 rounded-full bg-[#ff5f57]/80"></span>
+            <span class="size-3 rounded-full bg-[#febc2e]/80"></span>
+            <span class="size-3 rounded-full bg-[#28c840]/80"></span>
+          </span>
+          <button
+            v-if="route.id !== 'home'"
+            type="button"
+            class="inline-flex h-8 shrink-0 items-center gap-1 rounded-md border border-accent/60 px-2.5 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-accent-fg focus-visible:outline-2 focus-visible:outline-accent"
+            @click="navigate('home')"
           >
-            --plain
-          </a>
-          <ThemeToggle />
-          <a
-            :href="cvHref"
-            download
-            class="inline-flex h-7 items-center gap-1.5 rounded-md bg-accent px-2.5 font-mono text-xs font-semibold text-accent-fg transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
-            <Icon name="download" :size="12" /> cv
-          </a>
+            ← map
+          </button>
+          <p class="min-w-0 flex-1 truncate text-center font-mono text-sm text-muted">victor@data: ~/portfolio{{ path }}</p>
+          <div class="flex items-center gap-1.5">
+            <a
+              v-if="route.id !== 'plain'"
+              href="#/plain"
+              class="hidden h-8 items-center rounded-md border border-line px-2.5 font-mono text-sm text-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent sm:inline-flex"
+              title="Show everything on one page"
+            >
+              --plain
+            </a>
+            <ThemeToggle />
+            <a
+              :href="cvHref"
+              download
+              class="inline-flex h-8 items-center gap-1.5 rounded-md bg-accent px-3 font-mono text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <Icon name="download" :size="13" /> cv
+            </a>
+          </div>
         </div>
       </header>
 
@@ -248,7 +257,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         id="main"
         ref="scroller"
         tabindex="-1"
-        class="term-scroll flex-1 overflow-y-auto px-4 py-5 outline-none sm:px-8 sm:py-6"
+        class="mx-auto w-full max-w-6xl flex-1 px-4 py-6 outline-none sm:px-8 sm:py-8"
         @click="typing && skip()"
       >
         <p class="mb-5 font-mono text-sm break-words">
@@ -260,7 +269,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
           <component :is="components[shown.id]" :key="shown.id" />
 
           <div
-            v-if="shown.id !== 'plain'"
             class="no-print mt-12 flex flex-wrap items-center gap-3 border-t border-dashed border-line pt-5 font-mono text-sm"
           >
             <button
@@ -287,11 +295,12 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
             >
               next: $ {{ next.cmd }} →
             </button>
-            <span v-if="!next && shown.id !== 'home'" class="text-muted">end of pipeline · {{ explored }}/{{ total }} explored</span>
+            <span v-if="!next && shown.id !== 'home' && shown.id !== 'plain'" class="text-muted">end of pipeline · {{ explored }}/{{ total }} explored</span>
           </div>
         </template>
       </main>
 
+      <div class="sticky bottom-0 z-30">
       <PromptLine ref="prompt" :suggestions="suggestions" :response="response" @command="execute" @dismiss="response = []" />
       <StatusBar
         :current="current"
@@ -303,7 +312,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         @navigate="navigate"
         @help="showHelp"
       />
-    </div>
+      </div>
   </div>
 
   <p class="sr-only" aria-live="polite">{{ announce }}</p>

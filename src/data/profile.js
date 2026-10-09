@@ -1,5 +1,5 @@
 // All website content lives here. Edit this file when the CV changes.
-// Source of truth: cv/Victor_Ocampo_Marin_Data_Engineer_v6.tex and docs/master-resume.md.
+// Source of truth: cv/Victor_Ocampo_Marin_Data_Engineer_v8.tex and docs/master-resume.md.
 // Flow diagrams live in src/diagrams/ (one file per project).
 
 export const profile = {
@@ -27,7 +27,7 @@ export const profile = {
   ],
 
   // Served from public/. Replace the file there and update the name here when the CV changes.
-  cvFile: 'Victor_Ocampo_Marin_Data_Engineer_v6.pdf',
+  cvFile: 'Victor_Ocampo_Marin_Data_Engineer_v8.pdf',
 
   links: {
     email: 'victorocampomarin21@gmail.com',
@@ -36,7 +36,7 @@ export const profile = {
   },
 
   about: [
-    "I'm a Data Engineer with a 5-year background in software and data engineering, building data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.",
+    "I'm a Data Engineer with 5 years of software engineering experience: 3+ years of full stack development and data engineering since 2025, building data-intensive systems with SQL Server, ETL (SSIS, Apache NiFi) and Python.",
     "Today I'm responsible for data development across three concurrent client projects at a data outsourcing firm: data ingestion, file migration and SSIS modernization. I design and build the Apache NiFi flows for two of them.",
     'Before data engineering I was a full stack engineer (C#/.NET, Go, Vue.js, Django), so I care about the whole path: from the source system to the person reading the dashboard. I am used to explaining technical work to non-technical users.',
     "I'm currently training in Databricks, PySpark and Microsoft Fabric, and starting a personal Databricks lakehouse project.",
@@ -217,7 +217,7 @@ export const profile = {
     { group: 'Languages', items: ['Spanish (Native)', 'English (B2+, Professional Working Proficiency)'] },
   ],
 
-  // Shown apart from the skills above, marked "In training" (CV v6).
+  // Shown apart from the skills above, marked "In training" (CV v8).
   training: ['Databricks', 'PySpark', 'Microsoft Fabric'],
 
   certifications: [

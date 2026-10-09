@@ -49,15 +49,16 @@ defineExpose({ focus: () => input.value?.focus() })
 </script>
 
 <template>
-  <div class="no-print border-t border-line bg-surface px-4 py-2.5 sm:px-6">
+  <div class="no-print border-t border-line bg-surface/95 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-2.5 sm:px-8">
     <div
       v-if="response.length"
-      class="mb-2 max-h-72 overflow-y-auto rounded-md border border-line bg-surface-2 px-3 py-2 font-mono text-xs leading-relaxed text-muted"
+      class="mb-2 max-h-72 overflow-y-auto rounded-md border border-line bg-surface-2 px-3 py-2 font-mono text-sm leading-relaxed text-muted"
       role="status"
     >
       <p v-for="(line, i) in response" :key="i" class="whitespace-pre-wrap">{{ line }}</p>
     </div>
-    <form class="flex items-center gap-2 font-mono text-sm" @submit.prevent="submit">
+    <form class="flex items-center gap-2 font-mono text-[15px]" @submit.prevent="submit">
       <label for="prompt-input" class="shrink-0 select-none">
         <span class="text-accent">victor@data</span><span class="text-muted">:</span><span class="text-accent-2">~</span><span class="text-muted">$</span>
         <span class="sr-only">Type a command, for example help</span>
@@ -77,5 +78,6 @@ defineExpose({ focus: () => input.value?.focus() })
       />
       <kbd class="hidden rounded border border-line px-1.5 text-[10px] text-muted sm:inline" aria-hidden="true">/</kbd>
     </form>
+    </div>
   </div>
 </template>
