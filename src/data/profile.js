@@ -53,7 +53,7 @@ export const profile = {
       dates: 'May 2026 – Present',
       location: 'Costa Rica',
       bullets: [
-        'Principal data developer for two government judicial entities; sole builder of all their Apache NiFi flows.',
+        'Main developer for data engineering solutions at two government judicial entities; sole builder of their Apache NiFi flows.',
         'Built a metadata-driven file migration pipeline to Isilon storage with NiFi, Python, and SQL Server: a metadata table drives each transfer, and files are renamed by file ID and verified by Python scripts.',
         'Ensured end-to-end integrity: rejects corrupted or encrypted files, verifies SHA-256 hashes at the destination, retries failed transfers up to a limit, and logs every result and error to SQL Server audit tables.',
         'Build a NiFi log ingestion flow that loads application logs from multiple virtual machines into a database the analytics team uses to feed an AI support agent.',
